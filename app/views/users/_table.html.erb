@@ -1,0 +1,30 @@
+<div class="recent-orders">
+  <div id="users_notification"></div>
+  <div id="user-form"></div>
+  <div class="table-header">
+    <h2>Users</h2>
+    <%= link_to new_user_path, class: 'new-user-btn', remote: true do %>
+      <span class="material-icons-sharp">add</span>
+    <% end %>
+  </div>
+
+  <div>
+    <table>
+      <thead>
+        <tr>
+          <th>S/N</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>User Name</th>
+          <th>Mobile Number</th>
+          <th>Email</th>
+          <th>Status</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="users-table-body">
+        <%= render partial: 'table_rows', locals: { users: @users } %>
+      </tbody>
+    </table>
+  </div>
+</div>

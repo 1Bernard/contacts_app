@@ -1,0 +1,31 @@
+
+.table-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+
+.new-user-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background-color: var(--color-primary);
+  color: var(--color-white) !important;
+  padding: 8px 12px;
+  border-radius: var(--border-radius-1);
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 11px;
+  transition: background 0.3s ease;
+}
+
+  .new-user-btn:hover {
+    background-color: #737feccd;
+  }
+  
+  .material-icons-sharp {
+    font-size: 20px;
+    vertical-align: middle;
+  }

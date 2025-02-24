@@ -1,0 +1,156 @@
+
+/*====================== POPUP MODAL ======================*/
+
+.action-menu {
+  position: relative;
+}
+
+.more-options {
+  display: inline-block;
+  position: relative;
+}
+
+.mini-modal {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 10%;
+  transform: translateX(-50%);
+  background: var(--color-white);
+  border-radius: var(--border-radius-2);
+  box-shadow: var(--box-shadow);
+  min-width: 140px;
+  z-index: 10;
+  overflow: hidden;
+}
+
+.mini-modal .modal-action {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 15px;
+  text-decoration: none;
+  color: var(--color-dark);
+  font-size: 14px;
+  transition: background 0.3s;
+}
+
+.mini-modal .modal-action:hover {
+  background: var(--color-light);
+}
+
+.mini-modal .modal-action span {
+  font-size: 18px;
+  color: var(--color-primary);
+}
+
+/* Divider between actions */
+.modal-divider {
+  height: 1px;
+  background: var(--color-info-light);
+}
+
+/* Delete button color */
+.modal-danger span {
+  color: var(--color-danger);
+}
+
+/* Show modal on hover */
+.more-options:hover .mini-modal {
+  display: block;
+}
+
+/* Dark Mode Adjustments */
+.dark-theme-variables .mini-modal {
+  background: var(--color-white);
+  border-color: var(--color-dark-variant);
+}
+
+.dark-theme-variables .mini-modal .modal-action {
+  color: var(--color-dark);
+}
+
+.dark-theme-variables .modal-divider {
+  background: var(--color-light);
+}
+
+/*====================== MAIN MODAL ======================*/
+
+.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+  z-index: 1000;
+}
+
+/* Show the overlay when active */
+.overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.popup {
+  margin: 70px auto;
+  padding: 20px;
+  background: var(--color-white);
+  border-radius: var(--border-radius-2);
+  width: 40%;
+  position: relative;
+  box-shadow: var(--box-shadow);
+  /* Start with a slightly scaled down, transparent modal */
+  transform: scale(0.8);
+  opacity: 0;
+  transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+/* Animate the popup into view */
+.overlay.active .popup {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.popup h2 {
+  margin-top: 0;
+  text-align: center;
+  color: var(--color-primary);
+}
+
+.popup .close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  color: var(--color-danger);
+  cursor: pointer;
+}
+
+.form-container {
+  margin-top: 20px;
+}
+
+.form-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  justify-content: flex-end;
+  text-align: center;
+  margin-top: 10px;
+}
+
+/* Dark Theme Support */
+.dark-theme-variables .popup {
+  background: var(--color-white);
+  color: var(--color-dark);
+}
+
+.dark-theme-variables .popup .close {
+  color: var(--color-danger);
+}

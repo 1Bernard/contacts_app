@@ -1,10 +1,11 @@
 default: &default
-  adapter:  <%= ENV['DB_ADAPTER'] || 'postgresql' %>
+  adapter: <%= ENV['DB_ADAPTER'] || 'postgresql' %>
   encoding: unicode
-  host: <%= ENV['DB_HOST'] || 'localhost' %>
-  port: <%= ENV['DB_PORT'] || 5432 %>
-  username: <%= ENV['ETICKET_DB_USER'] %>
-  password: <%= ENV['ETICKET_DB_PASSWORD'] %>
+  host: <%= ENV['DB_HOST'] || 'aws-0-eu-central-1.pooler.supabase.com' %>
+  port: <%= ENV['DB_PORT'] || 6543 %>
+  username: <%= ENV['DB_USER'] || 'postgres.ipbphqqlssnietcqyfbh' %>
+  password: <%= ENV['DB_PASSWORD'] || 'z3j_V6KLQifm-CC' %>
+  database: <%= ENV['DB_NAME'] || 'postgres' %>
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
   reconnect: true
@@ -12,12 +13,9 @@ default: &default
 
 development:
   <<: *default
-  database: <%= ENV['ETICKET_DB_NAME'] %>
 
 test:
   <<: *default
-  database: <%= ENV['ETICKET_DB_NAME'] %>
 
 production:
   <<: *default
-  database: <%= ENV['ETICKET_DB_NAME'] %>

@@ -1,57 +1,32 @@
-<div id="<%= dom_id user %>">
-  <p>
-    <strong>User code:</strong>
-    <%= user.user_code %>
-  </p>
-
-  <p>
-    <strong>First name:</strong>
-    <%= user.first_name %>
-  </p>
-
-  <p>
-    <strong>Last name:</strong>
-    <%= user.last_name %>
-  </p>
-
-  <p>
-    <strong>Username:</strong>
-    <%= user.username %>
-  </p>
-
-  <p>
-    <strong>Mobile number:</strong>
-    <%= user.mobile_number %>
-  </p>
-
-  <p>
-    <strong>Image path:</strong>
-    <%= user.image_path %>
-  </p>
-
-  <p>
-    <strong>First login:</strong>
-    <%= user.first_login %>
-  </p>
-
-  <p>
-    <strong>Active status:</strong>
-    <%= user.active_status %>
-  </p>
-
-  <p>
-    <strong>Del status:</strong>
-    <%= user.del_status %>
-  </p>
-
-  <p>
-    <strong>Creator:</strong>
-    <%= user.creator_id %>
-  </p>
-
-  <p>
-    <strong>Email:</strong>
-    <%= user.email %>
-  </p>
-
-</div>
+<tr>
+  <td><%= index %>.</td>
+  <td><%= user.first_name %></td>
+  <td><%= user.last_name %></td>
+  <td><%= user.username %></td>
+  <td><%= user.mobile_number %></td>
+  <td><%= user.email %></td>
+  <td>
+    <% status = user.active_status %>
+    <span class="<%= ApplicationHelper.handle_active_class(status).downcase %>_status">
+      <%= ApplicationHelper.handle_active_class(status) %>
+    </span>
+  </td>
+  <td class="action-menu">
+    <div class="more-options">
+      <span class="material-icons-sharp more-icon">more_vert</span>
+      <div class="mini-modal">
+        <%= link_to show_user_path(user), class: "modal-action" do %>
+          <span class="material-icons-sharp">visibility</span> View
+        <% end %>
+        <div class="modal-divider"></div>
+        <%= link_to edit_user_path(user), class: "modal-action", remote: true do %>
+          <span class="material-icons-sharp">edit</span> Edit
+        <% end %>
+        <div class="modal-divider"></div>
+        <%= link_to delete_user_path(user), method: :delete, data: { confirm: "Are you sure?" }, class: "modal-action modal-danger" do %>
+          <span class="material-icons-sharp">delete</span> Delete
+        <% end %>
+      </div>
+    </div>
+  </td>
+</tr>

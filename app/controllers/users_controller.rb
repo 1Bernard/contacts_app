@@ -3,8 +3,9 @@ class UsersController < ApplicationController
 
   # GET /users or /users.json
   def index
-    @users = User.all
+    @users = User.all.order(created_at: :desc)
   end
+
 
   # GET /users/1 or /users/1.json
   def show
@@ -13,36 +14,55 @@ class UsersController < ApplicationController
   # GET /users/new
   def new
     @user = User.new
+    respond_to do |format|
+      index
+      @modal_action = 'open'
+      format.html  # fallback if needed
+      format.js { render "form" }
+    end
   end
+
 
   # GET /users/1/edit
   def edit
+    respond_to do |format|
+      index
+      format.html  # fallback if needed
+      format.js { render "form" }
+    end
   end
 
   # POST /users or /users.json
   def create
     @user = User.new(user_params)
-
     respond_to do |format|
       if @user.save
-        format.html { redirect_to @user, notice: "User was successfully created." }
-        format.json { render :show, status: :created, location: @user }
+        flash[:notice] = "#{@user.fullname} created successfully"
+        @users = User.all   # Ensure the updated table is available
+        @modal_action = 'close'
+        format.js { render 'form' }
+        flash.discard 
       else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
+        @modal_action = 'open'
+        format.js { render 'form', status: :unprocessable_entity }
       end
     end
   end
+
+
 
   # PATCH/PUT /users/1 or /users/1.json
   def update
     respond_to do |format|
       if @user.update(user_params)
-        format.html { redirect_to @user, notice: "User was successfully updated." }
-        format.json { render :show, status: :ok, location: @user }
+        flash[:notice] = "#{@user.fullname} created successfully"
+        @users = User.all   # Ensure the updated table is available
+        @modal_action = 'close'
+        format.js { render 'form' }
+        flash.discard 
       else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
+        @modal_action = 'open'
+        format.js { render 'form', status: :unprocessable_entity }
       end
     end
   end

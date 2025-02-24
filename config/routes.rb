@@ -1,10 +1,12 @@
 Rails.application.routes.draw do
+  resources :locations
+  resources :contacts
   resources :entity_infos
   resources :user_roles
   resources :permissions_roles
   resources :permissions
   resources :roles
-  resources :users
+  # resources :users
   get "dashboard/index"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -18,4 +20,13 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "dashboard#index"
+
+  get '/users', to: 'users#index', as: :users
+  get '/users/new', to: 'users#new', as: :new_user
+  post '/users', to: 'users#create', as: :create_user
+  get '/users/:id/edit', to: 'users#edit', as: :edit_user
+  patch '/users/:id', to: 'users#update', as: :update_user
+  get '/users/:id/view', to: 'users#show', as: :show_user
+  delete '/users/:id/delete', to: 'users#delete', as: :delete_user
+  put '/users/:id/update-status', to: 'users#toggle_status', as: :toggle_status_user
 end

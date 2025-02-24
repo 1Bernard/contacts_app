@@ -1,0 +1,18 @@
+<% if @modal_action == 'close' %>
+  // On a successful create/update:
+  // 1. Close the modal.
+  $("#user-modal").removeClass("active");
+
+  // 2. Update only the table body with the new rows.
+  $("#users-table-body").html("<%= j render(partial: 'users/table_rows', locals: { users: @users }) %>");
+
+  // 3. Update the notifications area with flash messages.
+  $("#users_notification").html("<%= escape_javascript(render 'layouts/messages') %>");
+<% else %>
+  // For the new action or when there are validation errors:
+  // Inject the form into the page and open the modal.
+  $("#user-form").html("<%= j render('users/form') %>");
+  setTimeout(function() {
+    $("#user-modal").addClass("active");
+  }, 10);
+<% end %>

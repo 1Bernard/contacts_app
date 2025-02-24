@@ -1,0 +1,33 @@
+
+/*====================== INPUT FIELDS ======================*/
+
+/* Updated input styling for transparent-like fields */
+input, select, textarea {
+  width: 100%;
+  padding: 10px;
+  background: var(--input-bg);
+  color: var(--color-dark-variant);
+  border: 0.2px solid var(--input-border);
+  border-radius: var(--border-radius-1);
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+/* Placeholder styling */
+input::placeholder,
+select::placeholder,
+textarea::placeholder {
+  color: var(--input-placeholder);
+}
+
+/* Focus state for enhanced visibility */
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--input-focus-border);
+  outline: none;
+}
+
+/* Additional spacing for inputs within your .form-inputs container */
+.form-inputs input {
+  margin-bottom: 10px;
+}

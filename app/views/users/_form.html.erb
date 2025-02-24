@@ -1,23 +1,23 @@
-
-<%= simple_form_for(@user) do |f| %>
-  <%= f.error_notification %>
-  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
-
-  <div class="form-inputs">
-    <%= f.input :user_code %>
-    <%= f.input :first_name %>
-    <%= f.input :last_name %>
-    <%= f.input :username %>
-    <%= f.input :mobile_number %>
-    <%= f.input :image_path %>
-    <%= f.input :first_login %>
-    <%= f.input :active_status %>
-    <%= f.input :del_status %>
-    <%= f.input :creator_id %>
-    <%= f.input :email %>
-  </div>
-
-  <div class="form-actions">
-    <%= f.button :submit %>
+<%= simple_form_for(@user, url: @user.new_record? ? create_user_path : update_user_path(@user.id), html: { autocomplete: 'off' }, remote: true) do |f| %>
+  <div id="user-modal" class="overlay">
+    <div class="popup">
+      <h2><%= @user.new_record? ? t(:add) : t(:edit) %> <%= t(:user) %></h2>
+      <a class="close" onclick="$('#user-modal').removeClass('active');">&times;</a>
+      <div class="form-container">
+        <%= f.error_notification %>
+        <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+        <div class="form-inputs">
+          <%= f.input :first_name %>
+          <%= f.input :last_name %>
+          <%= f.input :username %>
+          <%= f.input :mobile_number %>
+          <%= f.input :email %>
+        </div>
+        <div class="form-actions">
+          <a class="cancel" onclick="$('#user-modal').removeClass('active');">Cancel</a>
+          <%= f.button :submit, class: "create-btn" %>
+        </div>
+      </div>
+    </div>
   </div>
 <% end %>

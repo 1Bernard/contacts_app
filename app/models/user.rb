@@ -1,9 +1,12 @@
 class User < ApplicationRecord
+  # enum gender: { male: 0, female: 1 }
+
   has_one :user_role, -> { where del_status: false }, foreign_key: :user_code, primary_key: :user_code, inverse_of: :user
   has_one :role, through: :user_role
   has_one :entity_info, through: :user_role
 
   validates :first_name, :last_name, presence: { message: 'cannot be empty' }
+  validates :mobile_number, presence: true, phone: { possible: true, allow_blank: false, types: [:mobile] }
 
   before_validation :generate_user_code, on: :create, if: -> { user_code.blank? }
 

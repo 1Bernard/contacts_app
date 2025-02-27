@@ -9,10 +9,66 @@
   // 3. Update the notifications area with flash messages.
   $("#users_notification").html("<%= escape_javascript(render 'layouts/messages') %>");
 <% else %>
-  // For the new action or when there are validation errors:
-  // Inject the form into the page and open the modal.
   $("#user-form").html("<%= j render('users/form') %>");
   setTimeout(function() {
     $("#user-modal").addClass("active");
+    initializeIntlTelInput(); // Call this after form loads
   }, 10);
+
+  // Country code picker
+
+  function initializeIntlTelInput() {
+    const input = document.querySelector("#mobile_number");
+
+    if (input) {
+      console.log("Initializing intlTelInput on:", input);
+
+      const iti = window.intlTelInput(input, {
+        preferredCountries: ["gh", "us", "ng", "tg"],
+        separateDialCode: true,
+        initialCountry: "auto",
+        geoIpLookup: function (callback) {
+          fetch("https://ipapi.co/json")
+            .then((res) => res.json())
+            .then((data) => callback(data.country_code))
+            .catch(() => callback("US"));
+        },
+        utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/18.1.1/js/utils.js",
+      });
+
+      // 🚀 **Set the phone number value after initialization**
+      const existingPhoneNumber = input.getAttribute("value");
+      if (existingPhoneNumber) {
+        iti.setNumber(existingPhoneNumber); // ✅ This sets the input value with the country code
+      }
+
+      // Ensure correct formatting and validation on form submission
+      input.closest("form").addEventListener("submit", function (event) {
+        const fullNumber = iti.getNumber();
+        if (!iti.isValidNumber()) {
+          event.preventDefault();
+          alert("Invalid phone number for the selected country.");
+          return;
+        }
+        input.value = fullNumber; // ✅ Ensures submission includes full number with country code
+      });
+
+      // Optional: Show validation error on blur
+      input.addEventListener("blur", function () {
+        if (!iti.isValidNumber()) {
+          input.classList.add("is-invalid");
+        } else {
+          input.classList.remove("is-invalid");
+        }
+      });
+    } else {
+      console.log("intlTelInput not initialized: #mobile_number not found.");
+    }
+  }
+
+  // 🔄 **Trigger the function when needed**
+  document.addEventListener("turbo:load", initializeIntlTelInput);
+  document.addEventListener("turbo:frame-load", initializeIntlTelInput);
+  document.addEventListener("DOMContentLoaded", initializeIntlTelInput);
+
 <% end %>

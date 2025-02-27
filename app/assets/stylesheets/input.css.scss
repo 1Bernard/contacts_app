@@ -5,7 +5,7 @@
 input, select, textarea {
   width: 100%;
   padding: 10px;
-  background: var(--input-bg);
+  background: var(--color-white);
   color: var(--color-dark-variant);
   border: 0.2px solid var(--input-border);
   border-radius: var(--border-radius-1);
@@ -27,7 +27,31 @@ textarea:focus {
   outline: none;
 }
 
+.user-checkbox {
+  width: 0;
+}
+
 /* Additional spacing for inputs within your .form-inputs container */
 .form-inputs input {
   margin-bottom: 10px;
+}
+
+.form-inputs .row {
+  background: var(--color-lighter); //light theme
+  padding: 20px;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  display: flex;
+  gap: 10px;
+  align-items: center; /* Optional: centers the inputs vertically */
+}
+
+/* Two columns take equal space within a row */
+.row .input-column {
+  flex: 1;
+}
+
+/* Full-width row item */
+.row .full-width {
+  flex: 1 1 100%;
 }

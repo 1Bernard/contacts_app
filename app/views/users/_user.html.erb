@@ -1,4 +1,7 @@
 <tr>
+  <td>
+    <%= check_box_tag "user_ids[]", user.id, false, class: "user-checkbox" %>
+  </td>
   <td><%= index %>.</td>
   <td><%= user.first_name %></td>
   <td><%= user.last_name %></td>

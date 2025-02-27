@@ -7,12 +7,49 @@
         <%= f.error_notification %>
         <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
         <div class="form-inputs">
-          <%= f.input :first_name %>
-          <%= f.input :last_name %>
-          <%= f.input :username %>
-          <%= f.input :mobile_number %>
-          <%= f.input :email %>
-        </div>
+        
+            <!-- Row 1: First and Last Name -->
+            <div class="row">
+              <div class="input-column">
+                <%= f.input :first_name, label: "<i class='fa fa-user'></i> First Name".html_safe %>
+              </div>
+              <div class="input-column">
+                <%= f.input :last_name, label: "<i class='fa fa-user'></i> Last Name".html_safe %>
+              </div>
+            </div>
+
+            <!-- Row 2: Username and Email -->
+            <div class="row">
+              <div class="input-column">
+                <%= f.input :username, label: "<i class='fa fa-user'></i> Username".html_safe %>
+              </div>
+              <div class="input-column">
+                <%= f.input :email, label: "<i class='fa fa-envelope'></i> Email".html_safe %>
+              </div>
+            </div>
+
+            <!-- Row 3: Mobile Number (Full-Width) -->
+            <div class="row">
+                <%#= f.label :mobile_number, "Mobile Number" %>
+                <div class="form-group">
+                  <%= f.label :mobile_number, "Mobile Number" %>
+                  <input type="tel" name="<%= f.object_name %>[mobile_number]" 
+                        id="mobile_number" 
+                        class="form-control" 
+                        value="<%= f.object.mobile_number %>">
+
+                  <% if f.object.errors[:mobile_number].present? %>
+                    <div class="invalid-feedback form-control">
+                      <%= f.object.errors[:mobile_number].first %>
+                    </div>
+                  <% end %>
+                </div>
+                <%# <input type="tel" id="mobile_number" class="form-control"> %>
+              <%# </div> %>
+
+            </div>
+          </div>
+
         <div class="form-actions">
           <a class="cancel" onclick="$('#user-modal').removeClass('active');">Cancel</a>
           <%= f.button :submit, class: "create-btn" %>

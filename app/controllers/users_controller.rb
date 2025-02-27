@@ -3,7 +3,7 @@ class UsersController < ApplicationController
 
   # GET /users or /users.json
   def index
-    @users = User.all.order(created_at: :desc)
+    @users = User.order(created_at: :desc).paginate(page: params[:page], per_page: 10)
   end
 
 
@@ -34,16 +34,17 @@ class UsersController < ApplicationController
 
   # POST /users or /users.json
   def create
+    @modal_action = 'open'  # Ensure it's open by default
     @user = User.new(user_params)
+
     respond_to do |format|
       if @user.save
         flash[:notice] = "#{@user.fullname} created successfully"
-        @users = User.all   # Ensure the updated table is available
-        @modal_action = 'close'
+        index   # Ensure the updated table is available
+        @modal_action = 'close'  # Now set to close only on success
         format.js { render 'form' }
-        flash.discard 
+        flash.discard
       else
-        @modal_action = 'open'
         format.js { render 'form', status: :unprocessable_entity }
       end
     end
@@ -56,7 +57,8 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.update(user_params)
         flash[:notice] = "#{@user.fullname} created successfully"
-        @users = User.all   # Ensure the updated table is available
+        # Ensure the updated table is available
+        index
         @modal_action = 'close'
         format.js { render 'form' }
         flash.discard 
@@ -77,6 +79,17 @@ class UsersController < ApplicationController
     end
   end
 
+  def delete_multiple
+    if params[:user_ids].present?
+      User.where(id: params[:user_ids]).destroy_all
+      flash[:notice] = "Selected users deleted successfully."
+    else
+      flash[:alert] = "No users selected."
+    end
+    redirect_to users_path
+  end
+
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
@@ -85,6 +98,7 @@ class UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
+      params[:user][:mobile_number] = Phonelib.parse(params[:user][:mobile_number]).e164
       params.expect(user: [ :user_code, :first_name, :last_name, :username, :mobile_number, :image_path, :first_login, :active_status, :del_status, :creator_id, :email ])
     end
 end

@@ -1,0 +1,58 @@
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.form-control {
+  margin-top: 8px;
+}
+
+.invalid-feedback {
+  color: var(--color-danger);
+}
+
+.is-invalid {
+  border: 1px solid var(--color-danger);
+}
+
+.iti__country-list {
+  /* Existing styles */
+  position: absolute;
+  z-index: 2;
+  list-style: none;
+  padding: 0;
+  margin: 0 0 0 -1px;
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
+  background-color: var(--color-white); 
+  border: 1px solid var(--color-light);
+  white-space: nowrap;
+  max-height: 200px;
+  overflow-y: scroll;
+  transform: scale(0.8);
+  transition: transform 0.5s ease, opacity 0.5s ease;
+  -webkit-overflow-scrolling: touch;
+  
+  /* Scrollbar Styling */
+  scrollbar-width: thin;
+  scrollbar-color: var(--scroll-thumb) var(--scroll-track);
+}
+
+/* Webkit-based browsers (Chrome, Edge, Safari) */
+.iti__country-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.iti__country-list::-webkit-scrollbar-track {
+  background: var(--scroll-track);
+}
+
+.iti__country-list::-webkit-scrollbar-thumb {
+  background: var(--scroll-thumb);
+  border-radius: 4px;
+}
+
+.iti__divider {
+  padding-bottom: 5px;
+  margin-bottom: 5px;
+  border-bottom: 1px solid var(--color-light);
+}

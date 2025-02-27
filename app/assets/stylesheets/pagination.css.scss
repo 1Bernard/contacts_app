@@ -1,0 +1,145 @@
+/* Position the pagination container to float to the right */
+.custom-will-paginate {
+  float: right;
+}
+
+/* Basic pagination container styling */
+.custom-will-paginate .pagination {
+  display: inline-flex;
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+}
+
+/* Style for each pagination link (non-active pages) */
+.custom-will-paginate .page-item .page-link {
+  display: block;
+  margin: 0 4px;
+  padding: 8px 16px;
+  border: 1px solid var(--color-light);
+  color: var(--color-primary);
+  text-decoration: none;
+  border-radius: var(--border-radius-1);
+  background-color: var(--color-white);
+  transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+}
+
+/* Hover effect for non-active pages */
+.custom-will-paginate .page-item:not(.active) .page-link:hover {
+  background-color: var(--color-light);
+  border-color: var(--color-info-dark);
+}
+
+/* Active page styling with animated gradient border */
+.custom-will-paginate .page-item.active .page-link {
+  position: relative;
+  z-index: 1;
+  color: var(--color-primary);
+  /* Set the inner fill to white (or any desired background) */
+  background-color: var(--color-light);
+  /* Remove the default border */
+  border: none;
+}
+
+/* The ::before pseudo-element creates the animated gradient border ring */
+.custom-will-paginate .page-item.active .page-link::before {
+  content: "";
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  right: -4px;
+  bottom: -4px;
+  border-radius: var(--border-radius-1);
+  background: linear-gradient(
+    45deg,
+    var(--color-danger),
+    var(--color-primary),
+    var(--color-success),
+    var(--color-warning)
+  );
+  background-size: 300% 300%;
+  z-index: -2;
+  animation: gradientRotate 3s linear infinite;
+}
+
+/* The ::after pseudo-element covers the inner area to show only the ring */
+.custom-will-paginate .page-item.active .page-link::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: var(--border-radius-1);
+  background: var(--color-white);
+  z-index: -1;
+}
+
+/* Keyframes to animate the gradient background */
+@keyframes gradientRotate {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Disabled pagination styling */
+.custom-will-paginate .page-item.disabled .page-link {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/*====Uncomment out the styling below if you want the pagination indicator to have just a background color ====*/
+
+// /* Position the pagination container to float to the right */
+// .custom-will-paginate {
+//   float: right;
+// }
+
+// /* Style the pagination container as an inline-flex list */
+// .custom-will-paginate .pagination {
+//   display: inline-flex;
+//   list-style: none;
+//   padding: 0;
+//   margin: 20px 0;
+// }
+
+// /* Base style for each pagination link */
+// .custom-will-paginate .page-item .page-link {
+//   display: block;
+//   margin: 0 4px;
+//   padding: 8px 16px;
+//   border: 1px solid var(--color-light);
+//   color: var(--color-primary);
+//   text-decoration: none;
+//   border-radius: var(--border-radius-1);
+//   background-color: var(--color-white);
+//   transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+// }
+
+// /* Hover effect for non-active pages */
+// .custom-will-paginate .page-item:not(.active) .page-link:hover {
+//   background-color: var(--color-info-light);
+//   border-color: var(--color-info-dark);
+// }
+
+// /* Active (current) page styling */
+// .custom-will-paginate .page-item.active .page-link {
+//   background-color: var(--color-primary);
+//   border-color: var(--color-primary);
+//   color: var(--color-white);
+//   pointer-events: none; /* Makes it non-clickable */
+//   font-weight: bold;
+//   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+// }
+
+// /* Disabled page styling */
+// .custom-will-paginate .page-item.disabled .page-link {
+//   opacity: 0.5;
+//   pointer-events: none;
+// }

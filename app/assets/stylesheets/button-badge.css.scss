@@ -96,3 +96,29 @@
   transition: background 0.3s ease;
   cursor: pointer;
 }
+
+.delete-all-btn {
+  width: fit-content;
+  display: flex; /* always use flex so layout is consistent */
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 4px;
+  background-color: var(--color-danger);
+  color: var(--color-white) !important;
+  padding: 8px 12px;
+  border-radius: var(--border-radius-1);
+  text-decoration: none;
+  /* Start hidden */
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(0.95);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* When the button should be visible */
+.delete-all-btn.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1);
+}

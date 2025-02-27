@@ -28,5 +28,6 @@ Rails.application.routes.draw do
   patch '/users/:id', to: 'users#update', as: :update_user
   get '/users/:id/view', to: 'users#show', as: :show_user
   delete '/users/:id/delete', to: 'users#delete', as: :delete_user
+  delete '/users/delete_multiple', to: 'users#delete_multiple', as: :delete_multiple_users
   put '/users/:id/update-status', to: 'users#toggle_status', as: :toggle_status_user
 end

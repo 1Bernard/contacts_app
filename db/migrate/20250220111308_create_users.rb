@@ -29,6 +29,9 @@ class CreateUsers < ActiveRecord::Migration[8.0]
         t.string   :unlock_token
         t.datetime :locked_at
 
+        ## Enum for gender: 0 -> male, 1 -> female
+        t.integer :gender, null: false, default: 0
+
         t.timestamps
       end
 

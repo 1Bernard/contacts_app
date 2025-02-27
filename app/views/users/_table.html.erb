@@ -8,23 +8,38 @@
     <% end %>
   </div>
 
-  <div>
-    <table>
-      <thead>
-        <tr>
-          <th>S/N</th>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>User Name</th>
-          <th>Mobile Number</th>
-          <th>Email</th>
-          <th>Status</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody id="users-table-body">
-        <%= render partial: 'table_rows', locals: { users: @users } %>
-      </tbody>
-    </table>
-  </div>
+  <%= form_with url: delete_multiple_users_path, method: :delete, local: true do %>
+    <%= button_tag(type: 'submit', data: { confirm: "Are you sure you want to delete the selected users?" }, class: 'delete-all-btn') do %>
+      <span class="material-icons-sharp">delete_sweep</span>
+    <% end %>
+    <div>
+      <table>
+        <thead>
+          <tr>
+            <th>
+              <%= check_box_tag "select_all", "", false, id: "select_all", class:"user-checkbox" %>
+            </th>
+            <th>S/N</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>User Name</th>
+            <th>Mobile Number</th>
+            <th>Email</th>
+            <th>Status</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="users-table-body">
+          <%= render partial: 'table_rows', locals: { users: @users } %>
+        </tbody>
+      </table>
+      <span class="custom-will-paginate">
+        <%= will_paginate @users, remote: true %>
+      </span>
+    </div>
+    
+  <% end %>
 </div>
+
+<script>
+</script>

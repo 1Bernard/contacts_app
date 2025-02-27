@@ -10,18 +10,36 @@
   position: relative;
 }
 
+.more-options:first-child {
+  cursor: pointer;
+}
+
 .mini-modal {
-  display: none;
   position: absolute;
   top: 100%;
   left: 10%;
-  transform: translateX(-50%);
+  /* Keep the horizontal centering from your original code */
+  transform: translateX(-50%) translateY(10px); /* Start slightly shifted down */
   background: var(--color-white);
   border-radius: var(--border-radius-2);
   box-shadow: var(--box-shadow);
   min-width: 140px;
   z-index: 10;
   overflow: hidden;
+  
+  /* Initially hidden */
+  opacity: 0;
+  visibility: hidden;
+  
+  /* Animate opacity and vertical position */
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* When hovering over .more-options, animate the mini-modal into view */
+.more-options:hover .mini-modal {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
 }
 
 .mini-modal .modal-action {
@@ -53,11 +71,6 @@
 /* Delete button color */
 .modal-danger span {
   color: var(--color-danger);
-}
-
-/* Show modal on hover */
-.more-options:hover .mini-modal {
-  display: block;
 }
 
 /* Dark Mode Adjustments */
@@ -101,12 +114,61 @@
   background: var(--color-white);
   border-radius: var(--border-radius-2);
   width: 40%;
+  // width: 22%;
   position: relative;
   box-shadow: var(--box-shadow);
   /* Start with a slightly scaled down, transparent modal */
   transform: scale(0.8);
   opacity: 0;
   transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+.popup .body {
+  overflow: hidden;
+}
+
+.popup .body .pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  padding: 15px 20px;
+}
+
+.popup .body .pagination .number {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  line-height: 28px;
+  border-radius: 50%;
+  background: #00aaee;
+  color: #fff;
+  font-size: 15px;
+}
+
+.popup .body .pagination .bar {
+  width: 50px;
+  height: 4px;
+  background: #00aaee;
+  border-radius: 5px;
+}
+
+.popup .body .pagination .active ~ div {
+  background: #ddd;
+  color: #111;
+}
+
+.popup .steps {
+  width: 400%;
+  display: flex;
+  transition: all 300ms ease-in-out;
+}
+
+.popup .steps .step {
+  width: 98vw;
+  max-width: 400px;
+  padding: 5px 15px 15px;
+  overflow: hidden;
 }
 
 /* Animate the popup into view */

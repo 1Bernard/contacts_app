@@ -64,7 +64,7 @@ end
 
 gem "devise", "~> 4.9"
 gem 'cancancan', '~> 3.6', '>= 3.6.1'
-gem 'bootstrap', '~> 5.2.2'
+gem 'bootstrap', '~> 5.3.3'
 gem 'jquery-rails', '~> 4.4'
 gem 'simple_form', '~> 5.3', '>= 5.3.1'
 gem 'cloudinary', '~> 2.1', '>= 2.1.1'

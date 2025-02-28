@@ -45,11 +45,11 @@
       // Ensure correct formatting and validation on form submission
       input.closest("form").addEventListener("submit", function (event) {
         const fullNumber = iti.getNumber();
-        if (!iti.isValidNumber()) {
+        <%# if (!iti.isValidNumber()) {
           event.preventDefault();
           alert("Invalid phone number for the selected country.");
           return;
-        }
+        } %>
         input.value = fullNumber; // ✅ Ensures submission includes full number with country code
       });
 

@@ -44,36 +44,30 @@
 }
 
 /* Hide Form Steps Except First */
-.form-step {
-  display: none;
-}
-
-.form-step-active {
-  display: block;
-}
-
 
 .form-step {
   display: none;
-  transform-origin: top;
-  animation: animate 0.5s;
+  opacity: 0;
 }
 
+/* Active Step - Smooth Fade & Slide Effect */
 .form-step-active {
   display: block;
+  animation: fadeSlide 0.4s ease-in-out forwards;
 }
 
 .input-group {
   margin: 2rem 0;
 }
 
-@keyframes animate {
+/* Improved Animation for Form Steps */
+@keyframes fadeSlide {
   from {
-    transform: scale(1, 0);
     opacity: 0;
+    transform: translateY(20px);
   }
   to {
-    transform: scale(1, 1);
     opacity: 1;
+    transform: translateY(0);
   }
 }

@@ -1,60 +1,139 @@
-<%= simple_form_for(@user, url: @user.new_record? ? create_user_path : update_user_path(@user.id), html: { autocomplete: 'off' }, remote: true) do |f| %>
-  <div id="user-modal" class="overlay">
-    <div class="popup">
-      <h2><%= @user.new_record? ? t(:add) : t(:edit) %> <%= t(:user) %></h2>
-      <a class="close" onclick="$('#user-modal').removeClass('active');">&times;</a>
-      <div class="form-container">
-        <%= f.error_notification %>
-        <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
-        <div class="form-inputs">
-        
-            <!-- Row 1: First and Last Name -->
-            <div class="row">
-              <div class="input-column">
-                <%= f.input :first_name, label: "<i class='fa fa-user'></i> First Name".html_safe %>
-              </div>
-              <div class="input-column">
-                <%= f.input :last_name, label: "<i class='fa fa-user'></i> Last Name".html_safe %>
-              </div>
+<turbo-frame id="user_form">
+  <%= simple_form_for(@user, url: @user.new_record? ? create_user_path : update_user_path(@user.id), html: { autocomplete: 'off' }, remote: true) do |f| %>
+      <div id="user-modal" class="overlay">
+        <div class="popup">
+          <h2><%= @user.new_record? ? t(:add) : t(:edit) %> <%= t(:user) %></h2>
+          <%# <a class="close" onclick="$('#user-modal').removeClass('active');">&times;</a> %>
+          <div class="form-container">
+
+          <!-- Steps -->
+          <div class="form-step form-step-active">
+            <div class="input-group">
+              <label for="username">Username</label>
+              <input type="text" name="username" id="username" />
             </div>
-
-            <!-- Row 2: Username and Email -->
-            <div class="row">
-              <div class="input-column">
-                <%= f.input :username, label: "<i class='fa fa-user'></i> Username".html_safe %>
-              </div>
-              <div class="input-column">
-                <%= f.input :email, label: "<i class='fa fa-envelope'></i> Email".html_safe %>
-              </div>
+            <div class="input-group">
+              <label for="position">Position</label>
+              <input type="text" name="position" id="position" />
             </div>
-
-            <!-- Row 3: Mobile Number (Full-Width) -->
-            <div class="row">
-                <%#= f.label :mobile_number, "Mobile Number" %>
-                <div class="form-group">
-                  <%= f.label :mobile_number, "Mobile Number" %>
-                  <input type="tel" name="<%= f.object_name %>[mobile_number]" 
-                        id="mobile_number" 
-                        class="form-control" 
-                        value="<%= f.object.mobile_number %>">
-
-                  <% if f.object.errors[:mobile_number].present? %>
-                    <div class="invalid-feedback form-control">
-                      <%= f.object.errors[:mobile_number].first %>
-                    </div>
-                  <% end %>
-                </div>
-                <%# <input type="tel" id="mobile_number" class="form-control"> %>
-              <%# </div> %>
-
+            <div class="form-actions">
+              <a href="#" class="create-btn">Next</a>
             </div>
           </div>
+          <div class="form-step">
+            <div class="input-group">
+              <%= f.label :mobile_number, "Mobile Number" %>
+                <input type="tel" name="<%= f.object_name %>[mobile_number]" 
+                      id="mobile_number" 
+                      class="form-control" 
+                      value="<%= f.object.mobile_number %>">
+                <% if f.object.errors[:mobile_number].present? %>
+                  <div class="invalid-feedback form-control">
+                    <%= f.object.errors[:mobile_number].first %>
+                  </div>
+                <% end %>
+            </div>
+            <div class="input-group">
+              <label for="email">Email</label>
+              <input type="text" name="email" id="email" />
+            </div>
+            <div class="form-actions">
+              <a href="#" class="btn-prev">Previous</a>
+              <a href="#" class="create-btn">Next</a>
+            </div>
+          </div>
+          <div class="form-step">
+            <div class="input-group">
+              <label for="dob">Date of Birth</label>
+              <input type="date" name="dob" id="dob" />
+            </div>
+            <div class="input-group">
+              <label for="ID">National ID</label>
+              <input type="number" name="ID" id="ID" />
+            </div>
+            <div class="form-actions">
+              <a href="#" class="btn-prev">Previous</a>
+              <a href="#" class="create-btn">Next</a>
+            </div>
+          </div>
+          <div class="form-step">
+            <div class="input-group">
+              <label for="password">Password</label>
+              <input type="password" name="password" id="password" />
+            </div>
+            <div class="input-group">
+              <label for="confirmPassword">Confirm Password</label>
+              <input
+                type="password"
+                name="confirmPassword"
+                id="confirmPassword" />
+            </div>
 
-        <div class="form-actions">
-          <a class="cancel" onclick="$('#user-modal').removeClass('active');">Cancel</a>
-          <%= f.button :submit, class: "create-btn" %>
+            <div class="form-actions">
+              <a href="#" class="btn-prev">Previous</a>
+              <input type="submit" value="Submit" class="create-btn" />
+            </div>
+          </div>
+          <!-- Progress Indicator -->
+            <div class="progress-container">
+              <div class="step active"></div>
+              <div class="step"></div>
+              <div class="step"></div>
+              <div class="step"></div>
+            </div>
+            <div id="progress-text" class="text-center">Step 1 of 4</div> 
+          </div>
+          
         </div>
       </div>
-    </div>
-  </div>
-<% end %>
+    <% end %>
+</turbo-frame>
+
+<script>
+	
+const prevBtns = document.querySelectorAll(".btn-prev");
+const nextBtns = document.querySelectorAll(".create-btn");
+const formSteps = document.querySelectorAll(".form-step");
+const progressSteps = document.querySelectorAll(".step");
+
+let formStepsNum = 0;
+
+nextBtns.forEach((btn) => {
+  btn.addEventListener("click", (e) => {
+    e.preventDefault(); // Prevent default link behavior
+    if (formStepsNum < formSteps.length - 1) {
+      formStepsNum++;
+      updateFormSteps();
+      updateProgressbar();
+    }
+  });
+});
+
+prevBtns.forEach((btn) => {
+  btn.addEventListener("click", (e) => {
+    e.preventDefault(); // Prevent default link behavior
+    if (formStepsNum > 0) {
+      formStepsNum--;
+      updateFormSteps();
+      updateProgressbar();
+    }
+  });
+});
+
+function updateFormSteps() {
+  formSteps.forEach((formStep, index) => {
+    formStep.classList.toggle("form-step-active", index === formStepsNum);
+  });
+}
+
+function updateProgressbar() {
+  progressSteps.forEach((progressStep, idx) => {
+    progressStep.classList.remove("active"); // Remove active from all steps
+  });
+
+  progressSteps[formStepsNum].classList.add("active"); // Activate only the current step
+
+  // Update the progress text to show only the current step
+  document.getElementById("progress-text").textContent = `Step ${formStepsNum + 1} of ${progressSteps.length}`;
+}
+</script>

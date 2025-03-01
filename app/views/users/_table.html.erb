@@ -3,7 +3,7 @@
   <div id="user-form"></div>
   <div class="table-header">
     <h2>Users</h2>
-    <%= link_to new_user_path, class: 'new-user-btn', remote: true do %>
+    <%= link_to new_user_path, class: 'new-user-btn', remote: true, data: { turbo: false } do %>
       <span class="material-icons-sharp">add</span>
     <% end %>
   </div>

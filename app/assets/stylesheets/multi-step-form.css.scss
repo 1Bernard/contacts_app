@@ -1,0 +1,79 @@
+.text-center {
+  text-align: center;
+}
+
+.progress-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.step {
+  width: 9px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--color-info-light);
+  transition: width 0.3s, background-color 0.3s;
+  position: relative;
+}
+
+.step.active {
+  background-color: var(--color-primary);
+  width: 30px;
+  border-radius: 10px;
+}
+
+.step.completed {
+  background-color: lightblue;
+  width: 20px;
+}
+
+/* Step Titles */
+.step::after {
+  content: attr(data-title);
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 12px;
+  color: #333;
+  white-space: nowrap;
+}
+
+/* Hide Form Steps Except First */
+.form-step {
+  display: none;
+}
+
+.form-step-active {
+  display: block;
+}
+
+
+.form-step {
+  display: none;
+  transform-origin: top;
+  animation: animate 0.5s;
+}
+
+.form-step-active {
+  display: block;
+}
+
+.input-group {
+  margin: 2rem 0;
+}
+
+@keyframes animate {
+  from {
+    transform: scale(1, 0);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1, 1);
+    opacity: 1;
+  }
+}

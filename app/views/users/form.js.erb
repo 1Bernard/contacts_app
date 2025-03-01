@@ -66,9 +66,22 @@
     }
   }
 
-  // 🔄 **Trigger the function when needed**
+  <%# // 🔄 **Trigger the function when needed**
   document.addEventListener("turbo:load", initializeIntlTelInput);
   document.addEventListener("turbo:frame-load", initializeIntlTelInput);
   document.addEventListener("DOMContentLoaded", initializeIntlTelInput);
+
+  $(document).on("ajax:error", function(event) {
+  var errors = event.detail[0].errors;
+  var errorContainer = $("#error-messages");
+  
+  errorContainer.html(""); // Clear previous errors
+
+  if (errors.length > 0) {
+    errors.forEach(function(error) {
+      errorContainer.append("<p class='error-text'>" + error + "</p>");
+    });
+  }
+}); %>
 
 <% end %>

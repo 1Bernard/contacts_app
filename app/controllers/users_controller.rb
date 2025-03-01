@@ -34,8 +34,8 @@ class UsersController < ApplicationController
 
   # POST /users or /users.json
   def create
-    @modal_action = 'open'  # Ensure it's open by default
     @user = User.new(user_params)
+    @modal_action = 'open'  # Ensure it's open by default
 
     respond_to do |format|
       if @user.save
@@ -49,8 +49,6 @@ class UsersController < ApplicationController
       end
     end
   end
-
-
 
   # PATCH/PUT /users/1 or /users/1.json
   def update
